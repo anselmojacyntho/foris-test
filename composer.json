@@ -1,4 +1,9 @@
 {
+    "name": "anselmojacyntho/foris-students",
+    "type": "project",
+    "description": "The CLI processor for class consumption record.",
+    "keywords": ["foris", "cli"],
+    "license": "MIT",
     "require": {
         "league/csv": "^9.0",
         "larapack/dd": "1.*",
