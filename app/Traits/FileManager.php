@@ -2,9 +2,7 @@
 
 namespace App\Traits;
 
-use League\Csv\CannotInsertRecord;
-use League\Csv\Writer;
-
+use JamesGordo\CSV\Parser;
 trait FileManager {
 
     public $storagePath;
@@ -24,24 +22,21 @@ trait FileManager {
         return fopen($filePath, "w");
     }
 
-    public function writeFile($filePath)
+    public function insertRow($filePath, $row)
     {
-        $this->file = Writer::createFromPath($filePath, 'w+');
+        $file = fopen($filePath, "a");
+
+        fputcsv($file, $row);
+        fclose($file);
 
         return $this;
     }
 
-    public function insertRow($row)
-    {
-        $this->file->insertOne($row);
-        $this->file->setEscape('');
+    public function getContent($filePath)
+    {       
+        $parse = array_map('str_getcsv', file($filePath));
 
-        return $this;
-    }
-
-    public function getContent()
-    {
-        return $this->file->getContent();
+        return collection($parse);        
     }
 
     public function getFilePath($filePath)
