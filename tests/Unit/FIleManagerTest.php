@@ -1,6 +1,6 @@
 <?php
 
-include(base_path() . '/tests/mocks/FileManagerClass.php');
+include_once(base_path() . '/tests/mocks/FileManagerClass.php');
 
 use PHPUnit\Framework\TestCase;
 
