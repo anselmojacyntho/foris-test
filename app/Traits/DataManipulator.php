@@ -39,7 +39,7 @@ trait DataManipulator {
             }
         });
 
-        return $list->filter()->unique()->all();
+        return $list->filter()->unique()->sortBy('time')->reverse()->all();        
     }
     
     public function timeInClass($student, $presences)
@@ -64,7 +64,8 @@ trait DataManipulator {
 
         return [
             "name" => $student,
-            "time" => $message
+            "time" => $time,
+            "message" => $message
         ];
     }
 }

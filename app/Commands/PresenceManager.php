@@ -43,7 +43,7 @@ class PresenceManager implements CommandContract {
         $list = $this->classAttendanceTimeList($this->getContent($this->storageFile));
 
         foreach($list as $line) {
-            echo "{$line['name']}: {$line['time']} \n";
+            echo "{$line['name']}: {$line['message']} \n";
         }
     }
 
