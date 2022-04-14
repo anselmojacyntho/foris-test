@@ -51,7 +51,7 @@ class Validate {
     {
         foreach( $messages as $message) {
             if (isset($message['validation'])) {
-                $rule = $message['validation'][0];            
+                $rule = $message['validation'];                
                 echo "{$this->messages()[$rule]}\n";
             }            
         }
