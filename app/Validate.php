@@ -60,12 +60,12 @@ class Validate {
     public function messages()
     {
         return [
-            'isValidDay' => 'Dia da semana inválido',
-            'isWorkingClass' => 'Hora informada está fora do horário de aulas',
-            'isValidHour' => 'Hora informada inválida',
-            'isGreaterThan' => 'Hora informada nao é maior que a inicial',
-            'isLessThan' => 'Hora informada nao é menor que a final',
-            'minimumTime' => 'Registro nao possui o tempo minimo de aula'
+            'isValidDay' => 'Invalid day of the week',
+            'isWorkingClass' => 'Reported time is outside class hours',
+            'isValidHour' => 'Invalid reported time',
+            'isGreaterThan' => 'Reported time is not greater than the initial',
+            'isLessThan' => 'Reported time is not less than the final',
+            'minimumTime' => 'Registration does not have the minimum class time'
         ];
     }
 
