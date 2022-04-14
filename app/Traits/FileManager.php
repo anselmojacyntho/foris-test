@@ -18,7 +18,7 @@ trait FileManager {
     public function createFile($filePath)
     {
         $filePath = $this->getFilePath($filePath);
-
+        
         return fopen($filePath, "w");
     }
 
