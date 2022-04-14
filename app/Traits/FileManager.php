@@ -34,9 +34,13 @@ trait FileManager {
 
     public function getContent($filePath)
     {       
-        $parse = array_map('str_getcsv', file($filePath));
+        if (file_exists($filePath) && filesize($filePath) != 4096) {            
+            $parse = array_map('str_getcsv', file($filePath));
 
-        return collection($parse);        
+            return collection($parse);  
+        }
+        
+        return false;
     }
 
     public function getFilePath($filePath)
