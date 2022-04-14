@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Carbon\Carbon;
-
 trait DataManipulator {
 
     public function studentExists($data, $name)

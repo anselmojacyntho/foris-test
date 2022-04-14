@@ -5,7 +5,7 @@ namespace App\Commands;
 use App\Contracts\CommandContract;
 use App\Traits\FileManager;
 use App\Traits\DataManipulator;
-use PhpParser\Node\Stmt\Foreach_;
+use App\Validate;
 
 class PresenceManager implements CommandContract {
     
@@ -15,21 +15,31 @@ class PresenceManager implements CommandContract {
 
     public $storageFile;
     public $content;
+    public $validate;
 
     public function __construct()
     {
         $this->storageFile = default_storage_file();
         $this->file = $this->getContent($this->storageFile);
+        $this->validate = new Validate();
     }
 
     public function run($params)
     {
         $args = $params['args'];        
         
-        if ($this->studentExists($this->file, $args[0])) {            
-            $this->insertRow($this->storageFile, $this->createRow($args)); 
-        }      
-        
+        if ($this->studentExists($this->file, $args[0])) {          
+            
+            $validate = $this->validate->execute($this->fields($args), $this->rules());
+            
+            if ($validate['valid']) {
+                $this->insertRow($this->storageFile, $this->createRow($args));                
+            }
+            else {
+                $this->validate->printMessages($validate);
+            }
+        }             
+
         $list = $this->classAttendanceTimeList($this->getContent($this->storageFile));
 
         foreach($list as $line) {
@@ -42,6 +52,24 @@ class PresenceManager implements CommandContract {
         return [
             $this->command,
             ...$data
+        ];
+    }
+
+    public function fields($data)
+    {
+        return [
+            'day' => $data[1],
+            'start' => $data[2],
+            'end' => $data[3]
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            'day' => 'isValidDay',
+            'start' => 'isValidHour|isWorkingClass:start|isLessThan:end',
+            'end' => 'isValidHour|isWorkingClass:end|isGreaterThan:start|minimumTime:start'
         ];
     }
 }
