@@ -33,7 +33,7 @@ class Validate {
 
                             array_push($response, [
                                 'field' => $field,
-                                'validation' => $rule,
+                                'validation' => $rule[0],
                                 'valid' => $validate
                             ]); 
                         }                        
@@ -77,9 +77,12 @@ class Validate {
     public function isValidHour($data, $field, $rule)
     {
         $time = explode(':',$data[$field]);
-
+        
         $valid = ($time[0] < 0 || $time[0] > 23 ) ? false : true;
-        $valid = ($time[1] < 0 || $time[0] > 59 ) ? false : true;
+
+        if ($valid) {
+            $valid = ($time[1] < 0 || $time[0] > 59 ) ? false : true;
+        }
 
         return $valid;
     }
@@ -92,13 +95,19 @@ class Validate {
         $valid = false;
 
         if ($rule[1] == 'start') {
-            $valid = ($time[0] >= $workingHour[0]) ? true : false;
-            $valid = ($time[1] >= $workingHour[1]) ? true : false;
+            $valid = ($time[0] > $workingHour[0]) ? true : false;
+
+            if ($time[0] == $workingHour[0]) {
+                $valid = ($time[1] >= $workingHour[1]) ? true : false;
+            }            
         }
 
         if ($rule[1] == 'end') {
-            $valid = ($time[0] <= $workingHour[0]) ? true : false;
-            $valid = ($time[1] <= $workingHour[1]) ? true : false;
+            $valid = ($time[0] < $workingHour[0]) ? true : false;
+
+            if ($time[0] == $workingHour[0]) {
+                $valid = ($time[1] <= $workingHour[1]) ? true : false;
+            }  
         }
         
         return $valid;
@@ -108,8 +117,14 @@ class Validate {
     {
         $time = explode(':', $data[$field]);
         $compare = explode(':', $data[$rule[1]]);
-        
-        return $time[0] >= $compare[0] && $time[1] >= $compare[1] ? true : false;        
+
+        $valid = $time[0] > $compare[0] ? true : false;
+
+        if ($time[0] == $compare[0]) {
+            $valid = $time[1] >= $compare[1] ? true : false;
+        }
+
+        return $valid;      
     }
 
     public function isLessThan($data, $field, $rule)
@@ -117,7 +132,13 @@ class Validate {
         $time = explode(':', $data[$field]);
         $compare = explode(':', $data[$rule[1]]);
         
-        return $time[0] <= $compare[0] && $time[1] <= $compare[1] ? true : false;    
+        $valid = $time[0] < $compare[0] ? true : false;
+
+        if ($time[0] == $compare[0]) {
+            $valid = $time[1] <= $compare[1] ? true : false;
+        }
+
+        return $valid;     
     }
 
     public function minimumTime($data, $field, $rule)
