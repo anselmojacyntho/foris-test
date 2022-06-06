@@ -14,7 +14,8 @@ class Kernel extends CLI {
         return [
             'File' => new \App\Commands\DataFile,
             'Student' => new \App\Commands\StudentManager,
-            'Presence' => new \App\Commands\PresenceManager
+            'Presence' => new \App\Commands\PresenceManager,
+            'Reports' => new \App\Commands\ReportsManager
         ];
     }
 
