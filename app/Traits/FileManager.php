@@ -5,26 +5,26 @@ namespace App\Traits;
 use JamesGordo\CSV\Parser;
 trait FileManager {
 
-    public $storagePath;
-    public $basePath;
+    public $storage_path;
+    public $base_path;
     public $file;
 
     public function __construct()
     {
-        $this->storagePath = get_config('storage.path');
-        $this->basePath = base_path();       
+        $this->storage_path = getConfig('storage.path');
+        $this->base_path = basePath();       
     }
 
-    public function createFile($filePath)
+    public function createFile($file_path)
     {
-        $filePath = $this->getFilePath($filePath);
+        $file_path = $this->getFilePath($file_path);
         
-        return fopen($filePath, "w");
+        return fopen($file_path, "w");
     }
 
-    public function insertRow($filePath, $row)
+    public function insertRow($file_path, $row)
     {
-        $file = fopen($filePath, "a");
+        $file = fopen($file_path, "a");
 
         fputcsv($file, $row);
         fclose($file);
@@ -32,10 +32,12 @@ trait FileManager {
         return $this;
     }
 
-    public function getContent($filePath)
+    public function getContent($file_path)
     {       
-        if (file_exists($filePath) && filesize($filePath) != 4096) {            
-            $parse = array_map('str_getcsv', file($filePath));
+        if (file_exists($file_path) 
+            && filesize($file_path) != 4096
+        ) {            
+            $parse = array_map('str_getcsv', file($file_path));
 
             return collection($parse);  
         }
@@ -43,8 +45,8 @@ trait FileManager {
         return false;
     }
 
-    public function getFilePath($filePath)
+    public function getFile_path($file_path)
     {
-        return "{$this->basePath}/{$this->storagePath}/{$filePath}";
+        return "{$this->base_path}/{$this->storage_path}/{$file_path}";
     }
 }

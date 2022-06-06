@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileManagerTest extends TestCase
 {
-    public $fileName = 'test.txt';
+    public $file_name = 'test.txt';
     public $storage  = 'tests/mocks';
 
     public function testSuccessExtendsFileManagerTrait()
@@ -90,8 +90,8 @@ class FileManagerTest extends TestCase
 
         $manager->storagePath = $this->storage;
 
-        $manager->createFile($this->fileName);
+        $manager->createFile($this->file_name);
         
-        return base_path() . "/{$this->storage}/{$this->fileName}";
+        return base_path() . "/{$this->storage}/{$this->file_name}";
     }
 }

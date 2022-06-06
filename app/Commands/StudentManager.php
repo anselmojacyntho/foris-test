@@ -12,24 +12,24 @@ class StudentManager implements CommandContract {
 
     protected $command = 'Student';
     
-    public $storageFile;
+    public $storage_file;
     public $content;
 
     public function __construct()
     {
-        $this->storageFile = default_storage_file();
-        $this->file = $this->getContent($this->storageFile);
+        $this->storage_file = defaultStorageFile();
+        $this->file = $this->getContent($this->storage_file);
     }
 
     public function run($params)
     {
-        $studentName = $params['args'][0];
+        $student_name = $params['args'][0];
 
-        if (!$this->studentExists($this->file, $studentName)) {
-            $this->insertRow($this->storageFile, $this->createRow($studentName));    
+        if (!$this->studentExists($this->file, $student_name)) {
+            $this->insertRow($this->storage_file, $this->createRow($student_name));    
         }
 
-        $list = $this->classAttendanceTimeList($this->getContent($this->storageFile));
+        $list = $this->classAttendanceTimeList($this->getContent($this->storage_file));
 
         foreach($list as $line) {
             echo "{$line['name']}: {$line['time']} \n";

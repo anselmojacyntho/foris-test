@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class Validate {
 
-    public $workingHour = ['start' => '06:00', 'end' => '23:59'];
+    public $working_hour = ['start' => '06:00', 'end' => '23:59'];
 
     // Time in minutes
     public $minimumMinutesTime = 5;
@@ -89,24 +89,24 @@ class Validate {
 
     public function isWorkingClass($data, $field, $rule)
     {
-        $workingHour = explode(':', $this->workingHour[$rule[1]]);
+        $working_hour = explode(':', $this->working_hour[$rule[1]]);
         $time = explode(':', $data[$field]);
 
         $valid = false;
 
         if ($rule[1] == 'start') {
-            $valid = ($time[0] > $workingHour[0]) ? true : false;
+            $valid = ($time[0] > $working_hour[0]) ? true : false;
 
-            if ($time[0] == $workingHour[0]) {
-                $valid = ($time[1] >= $workingHour[1]) ? true : false;
+            if ($time[0] == $working_hour[0]) {
+                $valid = ($time[1] >= $working_hour[1]) ? true : false;
             }            
         }
 
         if ($rule[1] == 'end') {
-            $valid = ($time[0] < $workingHour[0]) ? true : false;
+            $valid = ($time[0] < $working_hour[0]) ? true : false;
 
-            if ($time[0] == $workingHour[0]) {
-                $valid = ($time[1] <= $workingHour[1]) ? true : false;
+            if ($time[0] == $working_hour[0]) {
+                $valid = ($time[1] <= $working_hour[1]) ? true : false;
             }  
         }
         

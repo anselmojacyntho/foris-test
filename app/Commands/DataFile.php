@@ -12,7 +12,7 @@ class DataFile implements CommandContract {
     {
         $file = $args['args'][0];
 
-        $createFile = $this->createFile($file);
+        $create_file = $this->createFile($file);
 
         dump('Arquivo criado');
     }

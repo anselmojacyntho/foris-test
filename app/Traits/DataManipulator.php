@@ -57,9 +57,9 @@ trait DataManipulator {
                 $time += $start->diffInMinutes($end);
             }
             
-            $isPlural =  ($presences->count() > 1) ? "days" : "day";
+            $is_plural =  ($presences->count() > 1) ? "days" : "day";
 
-            $message = "{$time} minutes in {$presences->count()} {$isPlural}";
+            $message = "{$time} minutes in {$presences->count()} {$is_plural}";
         }
 
         return [

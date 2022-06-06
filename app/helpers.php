@@ -1,7 +1,7 @@
 <?php
 
-if (! function_exists('get_config')) {
-    function get_config($path) {
+if (! function_exists('getConfig')) {
+    function getConfig($path) {
         
         $params = explode('.', $path);
         $config = include dirname(__DIR__, 1) . "/config/{$params[0]}.php";
@@ -10,17 +10,17 @@ if (! function_exists('get_config')) {
     }
 }
 
-if (! function_exists('base_path')) {
-    function base_path() {            
+if (! function_exists('basePath')) {
+    function basePath() {            
         return dirname(__DIR__, 1);
     }
 }
 
-if (! function_exists('default_storage_file')) {
-    function default_storage_file() {       
+if (! function_exists('defaultStorageFile')) {
+    function defaultStorageFile() {       
 
-        $storage = get_config('storage.path');
-        $path = base_path() . "/{$storage}";
+        $storage = getConfig('storage.path');
+        $path = basePath() . "/{$storage}";
         
         $dir = opendir($path);
 
